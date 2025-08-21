@@ -10,14 +10,14 @@ class Manager:
             db_name=config.DB_NAME,
             # collection_name=config.COLLECTION_NAME
         )
-        self.processor = Processor(r"C:\Users\eliwa\PycharmProjects\hostile-tweets-ex\data\weapon_list.txt")
+        self.processor = Processor()
+        # self.processor = Processor(r"C:\Users\eliwa\PycharmProjects\hostile-tweets-ex\data\weapon_list.txt")
 
 
-    def process_data(self):
+    def get_process_data(self):
         self.fetcher.connect()
         df = self.fetcher.load_data()
         result_df = self.processor.process_data(df.copy())
         result_df = result_df.astype(str)
         filter_result_df = result_df[['id','original_text','rarest_word',"weapons_detected"]]
-        output_data = filter_result_df.to_json(orient='records',force_ascii=False,indent=4)
-        return output_data
+        return filter_result_df.to_dict(orient='records')

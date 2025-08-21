@@ -1,9 +1,10 @@
 from  manager import Manager
 
 x = Manager()
-y = x.process_data()
-with open("nothing.json","w") as f:
-    f.write(y)
+y = x.get_process_data()
+print(y)
+# with open("nothing.json","w") as f:
+#     f.write(y)
 
 # from fetcher import Fetcher
 # import config

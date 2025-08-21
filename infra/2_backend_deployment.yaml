@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hostile-tweets-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hostile-tweets
+  template:
+    metadata:
+      labels:
+        app: hostile-tweets
+    spec:
+      containers:
+        - name: hostile-tweets-app
+          image: ezalosh12/hostile-tweets:latest
+          ports:
+            - containerPort: 8511
+          env:
+            - name: MDB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb-credentials
+                  key: username
+            - name: MDB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb-credentials
+                  key: password
+            - name: DB_NAME
+              value: "IranMalDB"
+

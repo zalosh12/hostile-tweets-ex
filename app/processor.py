@@ -4,16 +4,21 @@ from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from collections import Counter
 import re
 import string
+import os
 
 
 class Processor :
-    def __init__(self, weapons_file_path: str) :
+    def __init__(self) :
         nltk.download('vader_lexicon')
         self.sentiment_analyzer = SentimentIntensityAnalyzer()
+        weapons_file_path = os.path.abspath(
+            os.path.join(os.path.dirname(__file__), "../data/weapon_list.txt")
+        )
+
 
         with open(weapons_file_path, 'r') as f :
             self.weapons_list = set(line.lower().strip() for line in f)
-            print(self.weapons_list)
+
 
     def _get_sentiment(self, text: str) -> str :
         score = self.sentiment_analyzer.polarity_scores(text)['compound']
