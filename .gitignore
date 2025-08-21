@@ -27,6 +27,8 @@ coverage.xml
 
 test.py
 tweets_data.py
+tweets_data.csv
+nothing.json
 
 
 

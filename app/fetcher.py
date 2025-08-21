@@ -2,7 +2,7 @@ from pymongo import MongoClient
 import pandas as pd
 
 class Fetcher:
-    def __init__(self, uri: str, db_name: str, collection_name: str):
+    def __init__(self, uri: str, db_name: str, collection_name: str = "tweets"):
         self.uri = uri
         self.db_name = db_name
         self.collection_name = collection_name
@@ -18,8 +18,9 @@ class Fetcher:
     def load_data(self) -> pd.DataFrame:
         if self.collection is None:
             raise Exception("Failed to load data")
-        docs = list(self.collection.find({}, {"_id" : 0}))
-        df = pd.DataFrame(list(docs))
+        docs = list(self.collection.find({}))
+        df = pd.DataFrame(docs)
+        df = df.rename(columns={"_id":"id"})
         return df
 
     def close(self):
