@@ -25,7 +25,8 @@ coverage.xml
 .cache/
 
 
-
+test.py
+tweets_data.py
 
 
 
